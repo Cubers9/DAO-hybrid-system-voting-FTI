@@ -156,18 +156,34 @@ def show_my_account():
 
 def show_voting_page():
     st.header("Bilik Suara")
-    st.write(f"Pemilih Aktif: {st.session_state.user_aktif}")
+    st.info(f"Pemilih Aktif: {st.session_state.user_aktif}")
+    st.write("Silakan pilih pasangan calon di bawah ini. Pilihan Anda bersifat rahasia dan permanen.")
     
     col1, col2 = st.columns(2)
+    
     with col1:
-        st.subheader("Kandidat 01")
-        if st.button("Pilih 01"):
-            simpan_vote("Kandidat 01")
+        st.markdown("""
+        <div style="border:2px solid #f0f2f6; border-radius:10px; padding:20px; text-align:center">
+            <h3>PASLON 01</h3>
+            <h1 style="color:#FF4B4B">Cipuy & Ketoprak</h1>
+            <p>Visi: Kenyang dan Bahagia</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        if st.button("PILIH 01", use_container_width=True):
+            simpan_vote("Cipuy & Ketoprak")
+            
     with col2:
-        st.subheader("Kandidat 02")
-        if st.button("Pilih 02"):
-            simpan_vote("Kandidat 02")
-
+        st.markdown("""
+        <div style="border:2px solid #f0f2f6; border-radius:10px; padding:20px; text-align:center">
+            <h3>PASLON 02</h3>
+            <h1 style="color:#1C83E1">Ceka & Warkun</h1>
+            <p>Visi: Nongkrong Berfaedah</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        if st.button("PILIH 02", use_container_width=True):
+            simpan_vote("Ceka & Warkun")
 def simpan_vote(pilihan):
     c = conn.cursor()
     c.execute('INSERT INTO votes (pilihan, waktu) VALUES (?,?)', (pilihan, time.ctime()))
